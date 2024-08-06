@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="d-flex gap-3 m-0 p-0 justify-content-between w-100 my-4">
+
+            <input oninput="search()" placeholder="Search by name of player" type="text"
+                class="w-75 search form-control">
+            <button type="button" class="w-25 btn btn-outline-info" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                Add new player
+            </button>
+        </div>
+
+
+        <div class="fullInfo row"></div>
+
+        <h1 class="text-warning text-center my-3 players" >Players</h1>
+
+        <table class="table table-hover table-dark table-bordered mainTable">
+            <thead>
+                <th class="text-warning">№</th>
+                <th class="text-warning">Full name</th>
+                <th class="text-warning">Age</th>
+                <th class="text-warning">Position</th>
+                <th class="text-warning">Phone number</th>
+                <th class="text-warning">Salary</th>
+                <th class="text-warning">Delete/Update</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="modal fade modal-dialog-scrollable" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-warning" id="exampleModalLabel">Add new player</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input required placeholder="Name of employee" type="text" class="my-3 nameOfEmployee form-control">
+                    <input required class="my-3 form-control ageOfEmployee" placeholder="age of employee" type="number">
+                    <select class="my-3 form-select positionOfEmployee">
+                        <option selected disabled>Position</option>
+                        <option>Goalkeeper</option>
+                        <option>Defender</option>
+                        <option>Midfielder</option>
+                        <option>Forward</option>
+                    </select>
+                    <input required placeholder="Salary" type="number" class="my-3 salaryOfEmployee form-control">
+                    <input required maxlength="10" minlength="10" type="number"
+                        class="my-3 phoneOfEmployee form-control" placeholder="Phone number">
+                    <input type="text" class="team form-control my-3" placeholder="Team">
+                    <input type="number" class="goal form-control my-3" placeholder="Goals">
+                    <input type="text" class="photo form-control my-3" placeholder="Photo URL">
+                    <textarea class="description form-control my-3" placeholder="Description" cols="30"
+                        rows="5"></textarea>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button onclick="addEmployee()" data-bs-dismiss="modal" type="submit" class="btn btn-primary">Add
+                        employee</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade modal-dialog-scrollable" id="staticBackdrop" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-dark" id="staticBackdropLabel">Update information</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input placeholder="Name of employee" type="text" class="my-3 nameOfEmployee_update form-control">
+                    <input class="my-3 form-control ageOfEmployee_update" placeholder="age of employee" type="number">
+                    <select class="my-3 form-select positionOfEmployee_update">
+                        <option>Goalkeeper</option>
+                        <option>Defender</option>
+                        <option>Midfielder</option>
+                        <option>Forward</option>
+                    </select>
+                    <input placeholder="Salary" type="number" class="my-3 salaryOfEmployee_update form-control">
+                    <input type="number" class="my-3 phoneOfEmployee_update form-control" placeholder="Phone number">
+
+                    <input type="text" class="team_update form-control my-3" placeholder="Team">
+                    <input type="text" class="goal_update form-control my-3" placeholder="Goals">
+                    <input type="text" class="photo_update form-control my-3" placeholder="Photo URL">
+                    
+                    <textarea class="description_update form-control my-3" placeholder="Description" cols="30"
+                        rows="5"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button data-bs-dismiss="modal" type="button" class="btn btn-primary save-changes">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <template class="template">
+        <tr>
+            <td class="id">1</td>
+            <td class="name">Joe Doe</td>
+            <td class="age">30</td>
+            <td class="position">Designer</td>
+            <td class="number">+998901234567</td>
+            <td class="salary">50000</td>
+            <td>
+                <button class="btn btn-outline-danger delete"></button>
+                <button type="button" class="btn btn-outline-info update" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"></button>
+            </td>
+        </tr>
+    </template>
+
+
+    <template class="contnetTemplate">
+        <div class="row my-4">
+            <div class="col-6 text-center">
+                <img class="image" src="" alt="">
+            </div>
+            <div class="col-6">
+
+                <h1 class="my-4 fullName text-center"></h1>
+                <div class="col-12 row ">
+                    <div class="col-12">
+                        <h3 class="text-info">Description</h3>
+                        <p class="description"></p>
+                    </div>
+                    <div class="col-6 my-3">
+                        <h3 class="text-info">Information</h3>
+
+                        <p class="team"></p>
+                        <p class="age"></p>
+                        <p class="position"></p>
+                        <p class="goals"></p>
+                        <p class="phone"></p>
+                        <p class="salary"></p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </template>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>
